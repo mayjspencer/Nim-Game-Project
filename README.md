@@ -1,15 +1,12 @@
-# Lab 6: Nim with Polymorphic Players
+Nim with Polymorphic Players
 
 [Nim](https://en.wikipedia.org/wiki/Nim) is an ancient two-player strategy game that is played with a collection of identical objects organized into piles.
 The number and sizes of the piles can change from game to game, but 3-4-5 and 1-3-5-7 are commonly used.
 Players take turns removing one or more objects from any single pile until none remain.
 The loser is the player that removes the last object.
 
-In this lab, we will use our newly acquired knowledge of exceptions and abstract classes to write a Nim video game!
-Below is example output from the game in which I vanquish my computer opponent, RandomPlayer.
-After passing the unit tests, you can challenge RandomPlayer yourself by writing a driver class with a five-line main method.
+Below is example output from the game in which the human beats the computer opponent, RandomPlayer.
 
-```text
 Piles: [3, 4, 5]
 Enter pile index: 0
 Enter object number: 2
@@ -36,23 +33,17 @@ Enter pile index: 1
 Enter object number: 1
 RandomPlayer removed 1 from pile 1.
 
-Nice job, James. You win!
-```
+Nice job, Spencer. You win!
+
 
 ## Program Overview
 
-The structure of the program is shown in the UML diagram below.
-(See the PDF in the uml folder for a larger version.)
+The structure of the program is shown in the UML diagram.
 The Nim class uses the Player and Piles classes to simulate a game of Nim.
 Each Nim object contains two Player objects and one Piles object.
 
-![game-uml](./uml/game.svg)
-
-The Player class is abstract, which is indicated by italicized font.
+The Player class is abstract.
 It has one abstract method, getMove, that is overridden in its two non-abstract (concrete) subclasses: RandomPlayer and HumanPlayer.
-
-Much of the code in these classes has already been written for you.
-The Player class in your repo is complete, and the Nim and HumanPlayer classes are each only missing a single method.
 
 ## Custom Exception Class
 
