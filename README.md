@@ -62,7 +62,6 @@ Piles represents the piles of identical objects in a game of Nim.
 The class encapsulates the pile sizes and throws exceptions to enforce the rules of the game.
 
 * `Piles(int... initSizes)`: Initialize a new Piles object with the sizes in the given array.
-Copy the array to ensure that the sizes can only change by calling removeObjects.
 
   The constructor should throw an IllegalArgumentException if either of the following conditions is true:
 
@@ -71,7 +70,6 @@ Copy the array to ensure that the sizes can only change by calling removeObjects
   (None of the piles can initially be empty.)
 
 * `getSizes()`: Return an array with the current pile sizes.
-Make a copy of the sizes field before returning it to protect the data.
 
 * `removeObjects(int[] move)`: Remove objects from one of the piles.
 The input is a two-element array that represents a player's move.
@@ -79,8 +77,6 @@ The array has the format [index, number].
 The first element is the index of one of the piles.
 The second element is the number of objects to remove.
 
-  The method should throw an IllegalMoveException if any of the conditions listed below is true.
-  Check the conditions in the given order.
 
   1. If the array reference is null, throw an IllegalMoveException with the message `"null move"`.
 
@@ -94,12 +90,6 @@ The second element is the number of objects to remove.
 
   6. If the object number is greater than the pile size, use the message `"Object number greater than pile size: <number> > <size>"`.
 
-  In each of these messages, the substrings that start with `<` and end with `>` should be replaced with the corresponding values.
-  For instance, if an array of length 1 is passed to removeObjects, the exception message would be `"Invalid length: 1"`.
-
-* `isEmpty()`: Return true if all the piles are empty.
-Otherwise, return false.
-
 ## Player Class
 
 The abstract Player class provides a common set of methods that the Nim class uses to interact with all Player subclasses.
@@ -112,27 +102,20 @@ Most of them are used by Nim to notify a player that something important has hap
 Subclasses of Player can choose to override these methods to implement special behavior.
 For example, HumanPlayer uses these methods to print information to the console.
 
-Your repo contains a complete version of the Player class.
-You do not need to modify any of the code.
-However, please take a few minutes to study it before trying to write the methods described in the next sections.
-
 ## RandomPlayer Class
 
-RandomPlayer is a subclass of Player that makes choices with a [random number generator](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Random.html).
+RandomPlayer is a subclass of Player that makes choices with a [random number generator].
 It does not override any of the non-abstract Player methods.
 
-* `RandomPlayer(String name)`: Pass the name to the parent constructor and initialize the generator field by calling the [no-argument Random constructor](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Random.html#%3Cinit%3E()).
+* `RandomPlayer(String name)`: Pass the name to the parent constructor and initialize the generator field by calling the [no-argument Random constructor]
 
 * `getMove(int[] pileSizes)`: Return a random legal move.
-(Hint: Use the Random method [nextInt](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Random.html#nextInt(int)).)
 
 ## HumanPlayer Class
 
 HumanPlayer is a subclass of Player that gets moves from the user via the keyboard and prints information about the game to the console.
-All of the methods have been written for you except one.
 
 * `getUserInput(String prompt)`: Read and return an integer input by the user.
-If the input cannot be parsed as an integer, continue to prompt and read until an integer is found.
 
   The method should perform the following steps:
 
@@ -144,7 +127,6 @@ If the input cannot be parsed as an integer, continue to prompt and read until a
 ## Nim Class
 
 The Nim class uses the Piles and Player classes to simulate a game of Nim.
-All of its methods have been written for you except one.
 
 * `takeTurn()`: Get the next move from the current player and apply it to the piles.
 If the move is legal, notify the waiting player.
