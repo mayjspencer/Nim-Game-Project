@@ -140,38 +140,3 @@ If the move is illegal, notify the current player and ask for another move.
   Then return.
   4. If the Piles object throws an IllegalMoveException, catch it and notify the current player by calling notifyIllegalMove and passing it the exception message.
   5. Loop back to step 1.
-
-## Polymorphism, Dependency Injection, and Optimal Play
-
-The Player objects used by the Nim class are assigned to the fields currentPlayer and waitingPlayer.
-Note that the type of these variables is Player, not HumanPlayer or RandomPlayer.
-This implies that Nim does not know whether the current player is controlled by a human or a random number generator.
-Regardless of the object type, however, the game can call getMove on currentPlayer because the method is declared in the Player class.
-If currentPlayer stores a reference to a HumanPlayer object, the version of getMove that uses a keyboard Scanner is called.
-If currentPlayer stores a reference to a RandomPlayer object, the version of getMove that uses a random number generator is called.
-
-This is an example of [polymorphism](https://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html), and it simplifies the game code by allowing Nim to treat HumanPlayers and RandomPlayers in the same way.
-In particular, it simplifies the method takeTurn, which would otherwise require different branches of code to get moves from different types of players.
-
-The other aspect of Nim that is worth highlighting is that the class does not instantiate Player objects.
-For instance, nowhere in the class is there a statement like `new RandomPlayer("GLaDOS")`.
-Instead, the Player objects are constructed elsewhere, such as in the main method, and passed to the Nim constructor.
-This technique is called "[dependency injection](https://en.wikipedia.org/wiki/Dependency_injection)."
-
-The combination of polymorphism and dependency injection allows us to do something kind of amazing: We can reuse the Nim, Piles, and Player classes with any subclass of Player [without modifying the code](https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle)!
-This includes subclasses that we haven't even written yet.
-In the future, we could write a Player subclass with behavior that is entirely different from RandomPlayer, and it will automatically work with the existing game code.
-
-To illustrate this point, I've included an additional computer-controlled player class in the extra subfolder named "OptimalPlayer."
-If you've already written a driver class to challenge RandomPlayer, you can challenge OptimalPlayer instead by changing a single line of the main method.
-
-OptimalPlayer uses an optimal strategy for Nim that was discovered by the mathematician [Charles Bouton](https://en.wikipedia.org/wiki/Charles_L._Bouton) at the beginning of the 20th century.
-Bouton's work on Nim launched a new subfield of math and computer science known as "[combinatorial game theory](https://en.wikipedia.org/wiki/Combinatorial_game_theory)."
-
-Bouton proved that if both players use the optimal strategy, the winner depends on the initial pile sizes.
-If the sizes are 3, 4, and 5, then player 1 has the advantage.
-This means that it's possible to beat OptimalPlayer in a 3-4-5 game if you play first and don't make any mistakes!
-
-After you pass the unit tests, I encourage you to play a few 3-4-5 games against OptimalPlayer to see if you can find the optimal strategy.
-If you manage to win, try changing the pile sizes.
-If you enjoy this kind of game analysis, consider enrolling in Artificial Intelligence (CS 4013) or Machine Learning (CS 4033) in a future semester.
