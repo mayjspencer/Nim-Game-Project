@@ -1,13 +1,11 @@
-# Lab 6: Nim with Polymorphic Players
+# Nim with Polymorphic Players
 
 [Nim](https://en.wikipedia.org/wiki/Nim) is an ancient two-player strategy game that is played with a collection of identical objects organized into piles.
 The number and sizes of the piles can change from game to game, but 3-4-5 and 1-3-5-7 are commonly used.
 Players take turns removing one or more objects from any single pile until none remain.
 The loser is the player that removes the last object.
 
-In this lab, we will use our newly acquired knowledge of exceptions and abstract classes to write a Nim video game!
-Below is example output from the game in which I vanquish my computer opponent, RandomPlayer.
-After passing the unit tests, you can challenge RandomPlayer yourself by writing a driver class with a five-line main method.
+Below is example output from the game in which the human beats the computer opponent, RandomPlayer.
 
 ```text
 Piles: [3, 4, 5]
@@ -36,55 +34,27 @@ Enter pile index: 1
 Enter object number: 1
 RandomPlayer removed 1 from pile 1.
 
-Nice job, James. You win!
+Nice job, Spencer. You win!
 ```
 
 ## Program Overview
 
-The structure of the program is shown in the UML diagram below.
-(See the PDF in the uml folder for a larger version.)
+The structure of the program is shown in the UML diagram.
 The Nim class uses the Player and Piles classes to simulate a game of Nim.
 Each Nim object contains two Player objects and one Piles object.
 
-![game-uml](./uml/game.svg)
-
-The Player class is abstract, which is indicated by italicized font.
+The Player class is abstract.
 It has one abstract method, getMove, that is overridden in its two non-abstract (concrete) subclasses: RandomPlayer and HumanPlayer.
-
-Much of the code in these classes has already been written for you.
-The Player class in your repo is complete, and the Nim and HumanPlayer classes are each only missing a single method.
 
 ## Custom Exception Class
 
-Take another look at the example output in the introduction.
-Notice that the game is able to recover from my invalid input on moves two and three.
+The `IllegalMoveException` is a custom exception class in the Nim game. It extends the standard Java exception class and is specifically designed to be thrown when an illegal move is detected within the `Piles` class.
 
-On my second move, I entered "1q" instead of an integer, which caused the game to prompt me for an object number twice.
-On my third move, I tried to avoid taking any objects by entering an object number of 0.
-This is an illegal move, so the game asked me for a different move.
+In the Nim game context, an illegal move could be any move that violates the rules of the game, such as trying to remove objects from a pile that doesn't exist, attempting to remove a negative number of objects, or trying to remove more objects than are present in a pile.
 
-This resilient behavior is accomplished by throwing and catching exceptions.
-To facilitate it, we will write a custom exception class, which is shown in the diagram below.
+By throwing this custom exception, the `Piles` class signals that an error related to an illegal move has occurred. This allows the game to catch and handle this exception, providing a mechanism for the program to recover from invalid user input and prompt the user for a different, valid move.
 
-![exceptions-uml](./uml/exceptions.svg)
-
-IllegalMoveException extends the Java API [Exception class](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Exception.html) and is thrown by the Piles method removeObjects when given an illegal move.
-The constructor takes a String argument with information about the move and passes it to the [one-argument parent constructor](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Exception.html#%3Cinit%3E(java.lang.String)).
-The String can be retrieved later by calling the inherited method [getMessage](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Throwable.html#getMessage()).
-
-The compiler expects any subclass of Exception to declare a field named "serialVersionUID".
-This is because Exception implements the [Serializable interface](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html).
-If the field is not declared, the compiler will generate a warning.
-
-Compiler warnings won't prevent your code from passing the JUnit tests, but they will cause it to fail the zyLab tests.
-To eliminate the warning, add the following line to IllegalMoveException:
-
-```java
-private static final long serialVersionUID = 1L;
-```
-
-You can make Eclipse do this for you by hovering over the class name, which will be underlined in yellow, and selecting "Add default serial version ID" or "Add generated serial version ID."
-The value of the field is arbitrary, but it needs to be a long integer, which is indicated by appending `L` to the number.
+In summary, `IllegalMoveException` serves as a means of indicating and handling errors related to illegal moves within the Nim game, contributing to the resilience of the game's behavior when faced with unexpected or invalid user input.
 
 ## Piles Class
 
