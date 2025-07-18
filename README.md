@@ -1,5 +1,66 @@
 # Nim with Polymorphic Players
 
+This is a Java-based command-line implementation of the classic strategy game [Nim](https://en.wikipedia.org/wiki/Nim). The project demonstrates core object-oriented programming (OOP) concepts, custom exception handling, and user interaction via CLI.
+
+## Game Overview
+
+Nim is an ancient two-player game involving several piles of identical objects. Players take turns removing **one or more objects** from a **single pile**. The player forced to take the last object **loses**.
+
+Typical starting configurations include pile sizes such as `3-4-5` or `1-3-5-7`.
+
+Outwit your opponent (a human or AI) by leaving them with no winning moves.
+
+## Features
+
+- Object-Oriented Design using `Player`, `HumanPlayer`, `RandomPlayer`, `Piles`, and `Nim` classes
+- Custom exception handling with `IllegalMoveException`
+- Clear game flow with input validation and detailed error messages
+- Abstract base class (`Player`) with polymorphic behavior
+- Basic AI opponent using randomized valid moves
+- CLI input/output via `Scanner`
+- UML diagrams included for learning and documentation
+
+## How to Run
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/mayjspencer/Nim-Game-Project.git
+   cd Nim-Game-Project
+   ```
+   
+2. Compile all Java files:
+    ```bash
+    javac *.java
+    ```
+
+3. Run the game:
+    ```bash
+    java Nim
+    ```
+## Sample Gameplay
+<img src="gameplay.png" alt="Sample Gameplay" width="600"/>
+
+## Error Handling
+Custom exception IllegalMoveException is thrown for:
+- Invalid pile index
+- Removing more objects than available
+- Negative or zero object requests
+- Empty pile access
+- This helps enforce the rules and improve resilience of the CLI game experience.
+
+## UML Diagrams
+View the full object structure and class design:
+- Game UML
+- Exception UML
+
+## Author
+
+Spencer May
+University of Oklahoma Graduate - Computer Science | Oklahoma City | GitHub Profile
+
+
+## Details About The Game of Nim
+
 [Nim](https://en.wikipedia.org/wiki/Nim) is an ancient two-player strategy game that is played with a collection of identical objects organized into piles.
 The number and sizes of the piles can change from game to game, but 3-4-5 and 1-3-5-7 are commonly used.
 Players take turns removing one or more objects from any single pile until none remain.
@@ -37,7 +98,7 @@ RandomPlayer removed 1 from pile 1.
 Nice job, Spencer. You win!
 ```
 
-## Program Overview
+### Program Overview
 
 The structure of the program is shown in the UML diagram.
 The Nim class uses the Player and Piles classes to simulate a game of Nim.
@@ -46,7 +107,7 @@ Each Nim object contains two Player objects and one Piles object.
 The Player class is abstract.
 It has one abstract method, getMove, that is overridden in its two non-abstract (concrete) subclasses: RandomPlayer and HumanPlayer.
 
-## Custom Exception Class
+### Custom Exception Class
 
 The `IllegalMoveException` is a custom exception class in the Nim game. It extends the standard Java exception class and is specifically designed to be thrown when an illegal move is detected within the `Piles` class.
 
@@ -56,7 +117,7 @@ By throwing this custom exception, the `Piles` class signals that an error relat
 
 In summary, `IllegalMoveException` serves as a means of indicating and handling errors related to illegal moves within the Nim game, contributing to the resilience of the game's behavior when faced with unexpected or invalid user input.
 
-## Piles Class
+### Piles Class
 
 Piles represents the piles of identical objects in a game of Nim.
 The class encapsulates the pile sizes and throws exceptions to enforce the rules of the game.
@@ -90,7 +151,7 @@ The second element is the number of objects to remove.
 
   6. If the object number is greater than the pile size, use the message `"Object number greater than pile size: <number> > <size>"`.
 
-## Player Class
+### Player Class
 
 The abstract Player class provides a common set of methods that the Nim class uses to interact with all Player subclasses.
 The most important of these is the abstract method getMove, which must be overridden by any non-abstract subclass.
@@ -102,7 +163,7 @@ Most of them are used by Nim to notify a player that something important has hap
 Subclasses of Player can choose to override these methods to implement special behavior.
 For example, HumanPlayer uses these methods to print information to the console.
 
-## RandomPlayer Class
+### RandomPlayer Class
 
 RandomPlayer is a subclass of Player that makes choices with a [random number generator].
 It does not override any of the non-abstract Player methods.
@@ -111,7 +172,7 @@ It does not override any of the non-abstract Player methods.
 
 * `getMove(int[] pileSizes)`: Return a random legal move.
 
-## HumanPlayer Class
+### HumanPlayer Class
 
 HumanPlayer is a subclass of Player that gets moves from the user via the keyboard and prints information about the game to the console.
 
@@ -124,7 +185,7 @@ HumanPlayer is a subclass of Player that gets moves from the user via the keyboa
   3. If the Scanner throws an InputMismatchException, catch it and call nextLine to get rid of the invalid input.
   4. Loop back to step 1.
 
-## Nim Class
+### Nim Class
 
 The Nim class uses the Piles and Player classes to simulate a game of Nim.
 
