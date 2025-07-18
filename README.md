@@ -48,11 +48,6 @@ Custom exception IllegalMoveException is thrown for:
 - Empty pile access
 - This helps enforce the rules and improve resilience of the CLI game experience.
 
-## UML Diagrams
-View the full object structure and class design:
-- Game UML
-- Exception UML
-
 ## Author
 
 Spencer May
